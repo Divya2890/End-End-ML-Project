@@ -2,7 +2,6 @@ import sys
 import traceback
 
 class Custom_Exception():
-
     def custom_exception(self,err,sys):
         _,_,exc_traceback = sys.exc_info()
         last_stack = traceback.extract_tb(exc_traceback)
