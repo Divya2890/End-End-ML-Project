@@ -26,7 +26,7 @@ class Data_Transformation():
     def create_tranformer_obj(self):
         try:
             logging.info("Started to create preprocess obj")
-            numerical_columns = []
+            numerical_columns = ['reading score', 'writing score']
             categorical_columns = ['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course']
 
             num_pipeline = Pipeline(
@@ -59,27 +59,33 @@ class Data_Transformation():
             logging.info('Started to fit and transform the pipelines into train and testing data')
             train_data = pd.read_csv('artifacts/train.csv')
             test_data = pd.read_csv('artifacts/test.csv')
-            train_data['Total_score'] = train_data.apply(lambda row: np.sum([row['math score'],row['writing score'],row['reading score']]),axis = 1)
-            test_data['Total_score'] = test_data.apply(lambda row: np.sum([row['math score'],row['writing score'],row['reading score']]),axis = 1)
-            x_train= train_data.drop(columns=['Total_score','math score','reading score','writing score'], axis =1)
-            x_test= test_data.drop(columns=['Total_score','math score','reading score','writing score'],axis =1 )
-            y_train = train_data['Total_score']
-            y_test = test_data['Total_score']
+            # train_data['Total_score'] = train_data.apply(lambda row: np.sum([row['math score'],row['writing score'],row['reading score']]),axis = 1)
+            # test_data['Total_score'] = test_data.apply(lambda row: np.sum([row['math score'],row['writing score'],row['reading score']]),axis = 1)
+            # x_train= train_data.drop(columns=['Total_score'], axis =1)
+            # x_test= test_data.drop(columns=['Total_score'],axis =1 )
+            # y_train = train_data['Total_score']
+            # y_test = test_data['Total_score']
+            x_train= train_data.drop(columns=['math score'], axis =1)
+            x_test= test_data.drop(columns=['math score'],axis =1 )
+            y_train = train_data['math score']
+            y_test = test_data['math score']
             preproc_obj = self.create_tranformer_obj()
-            x_train_transf = preproc_obj.fit_transform(x_train).toarray()
-            x_test_transf = preproc_obj.transform(x_test).toarray()
-            y_train = np.array(y_train).reshape(-1, 1)
-            y_test=np.array(y_test).reshape(-1, 1)
+            x_train_transf = preproc_obj.fit_transform(x_train)
+            x_test_transf = preproc_obj.transform(x_test)
+            y_train = np.array(y_train)
+            y_test=np.array(y_test)
             train_transf=np.c_[x_train_transf,y_train]
             test_transf=np.c_[x_test_transf,y_test]
-
+            
             # creating a pickle file to save the preprocessing object that lets us store all the transformations needed 
             save_obj(DataTranformationConfig().preprocessor_path, preproc_obj)
             logging.info('Sucessfully saved the preprocess obj into a pickle file')
-            return [train_transf,test_transf,preproc_obj]
+            return (train_transf,test_transf,preproc_obj)
         except Exception as e:
             Custom_Exception().custom_exception(e,sys)
 
 if __name__ == '__main__':
-    obj = Data_Transformation()
-    obj.initiate_transformation()
+    data_transformation=Data_Transformation()
+    train_transf,test_transf,preproc_obj=data_transformation.initiate_transformation()
+
+
