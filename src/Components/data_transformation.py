@@ -5,11 +5,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from dataclasses import dataclass
-from Mlops.exceptions import Custom_Exception
-from Mlops.logger import logging
+from src.exceptions import Custom_Exception
+from src.logger import logging
 import os
 import sys
-from Mlops.utils import save_obj
+from src.utils import save_obj
 
 
 # Target is to create a pickle file for saving the data after performing 

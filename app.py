@@ -1,5 +1,5 @@
 from flask import Flask,render_template, request
-from Mlops.Pipelines.test import Custom_data, Predict_Pipeline
+from src.Pipelines.test import Custom_data, Predict_Pipeline
 import pandas as pd
 
 

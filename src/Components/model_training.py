@@ -1,9 +1,9 @@
 import os
 import sys
 import pandas as pd
-from Mlops.logger import logging
-from Mlops.exceptions import Custom_Exception
-from Mlops.utils import save_obj, evaluate_models
+from src.logger import logging
+from src.exceptions import Custom_Exception
+from src.utils import save_obj, evaluate_models
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVC
@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestRegressor,GradientBoostingRegressor, Ad
 from xgboost import XGBRegressor
 from sklearn.metrics import accuracy_score, r2_score, classification_report
 from dataclasses import dataclass
-from Mlops.Components.data_transformation import Data_Transformation
+from src.Components.data_transformation import Data_Transformation
 
 @dataclass
 class ModelTrainingConfig:
