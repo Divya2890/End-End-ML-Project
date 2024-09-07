@@ -16,10 +16,12 @@ from Mlops.Components.data_transformation import Data_Transformation
 @dataclass
 class ModelTrainingConfig:
     model_obj_path : str = os.path.join('artifacts','model.pkl')
+    acc_rep_path: str = os.path.join('artifacts', 'accuracy_report.csv')
 
 class Model_Trainer:
     def __init__(self):
-        self.model_path = ModelTrainingConfig()
+        self.model_path = ModelTrainingConfig().model_obj_path
+        self.acc_rep_path = ModelTrainingConfig().acc_rep_path
     
     def initiate_model(self,train,test):
         print("Entered to initalise our models")
@@ -83,6 +85,9 @@ class Model_Trainer:
             
             accuracy_report  = evaluate_models(x_train,x_test,y_train,y_test,models, parameters)
             
+            report = {key: [value] for key,value in accuracy_report.items()}
+            df = pd.DataFrame(report)
+            df.to_csv(self.acc_rep_path)
             print("successfully evaluated my models", accuracy_report)
             # find the best model using the report
             maxi=max(accuracy_report.values())
@@ -100,7 +105,7 @@ class Model_Trainer:
             model_path = os.path.join("artifacts",'best_model.pkl')
             save_obj(model_path, best_model_obj)
 
-        
+
             # we are returning the predictions for our best model on x_test
             y_test_pred = models[best_model].predict(x_test) 
             test_r2_score = r2_score(y_test,y_test_pred)

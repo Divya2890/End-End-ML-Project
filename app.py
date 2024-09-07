@@ -1,5 +1,7 @@
 from flask import Flask,render_template, request
 from Mlops.Pipelines.test import Custom_data, Predict_Pipeline
+import pandas as pd
+
 
 # creating a instance of flask app
 app = Flask(__name__)
@@ -23,7 +25,10 @@ def predict_score():
         sample  = form_data.convert_to_dataframe()
         print(type(sample), sample,"TESTING MY SAMPLE DATAFRAME")
         result = Predict_Pipeline().predict_sample(sample)
-        return render_template('predict_form.html', results = result[0])
+        df = pd.read_csv('artifacts/accuracy_report.csv')
+        print("Regression onlu ",df['Linear Regression'],"\n",df['XG Boost'])
+        return render_template('Output.html',results = result[0],r2_linear_regression = df['Linear Regression'][0]  ,r2_xg_boost = df['XG Boost'][0] , r2_ada_boost = df['Ada Boost'][0], r2_decision_tree =df['Decision Tree Regressor'][0] ,r2_random_forest= df['Random Forest Regressor'][0] ,r2_gradient_boosting = df['Gradient Boosting'][0])
+        
 
 if __name__ == '__main__':
     app.run(debug=True)
