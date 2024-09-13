@@ -1,9 +1,9 @@
 ## Creating a testing pipeline that takes a sample row as an input and uses the best_model.pkl file to 
 ## find the predicted total_score 
 ## before that, i have to create a flask applications that lets user give an input through a form
-from Mlops.logger import logging
-from Mlops.exceptions import Custom_Exception
-from Mlops.utils import load_object
+from src.logger import logging
+from src.exceptions import Custom_Exception
+from src.utils import load_object
 import os
 import pandas as pd
 

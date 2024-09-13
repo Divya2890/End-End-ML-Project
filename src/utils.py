@@ -4,7 +4,7 @@
 import os
 import sys
 import pickle
-from Mlops.exceptions import Custom_Exception
+from src.exceptions import Custom_Exception
 
 from sklearn.metrics import accuracy_score,r2_score
 from sklearn.model_selection import GridSearchCV
