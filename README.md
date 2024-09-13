@@ -31,13 +31,15 @@ The training stage involves:
 - 💾 Saving the best-performing model as a best_model.pkl file under artificats
 
 `model_training.py` file in this project compares the following models
-1. Logistic regression
-2. XG-Boost
-3. Ada boost
-4. Decision Tree regression
-5. Random Forest regression
-6. Gradient Boosting
- and uses GridsearchCV for hyperparameter optimisation and saves the model weights with best R2_score in the pickle file.
+
+1. **Logistic regression**
+2. **XG-Boost**
+3. **Ada boost**
+4. **Decision Tree regression**
+5. **Random Forest regression**
+6. **Gradient Boosting**
+
+and uses GridsearchCV for hyperparameter optimisation and saves the model weights with best R2_score in the pickle file.
 
 ### 4. **🗂️ Pipeline **
 Once the components are built and the pickle files are created, we move on to creating a **pipeline folder**. This folder is designed to:
@@ -49,48 +51,29 @@ This pipeline automates the process of transforming new incoming data and making
 
 
 ### 5. **🌐 Building a Flask App**
-After training the models and setting up the pipeline, we create a **Flask** web application that allows:
+After training the models and setting up the pipeline, we create a **Flask** web application using `app.py` that allows:
 
-- 🔗 Users to send new data to the model through API endpoints.
+- 🔗 Users to send new data to the model through post call submitted through a form from the app.
 - 🧮 The app to process the incoming data using the transformation pipeline and return predictions from the trained model.
-
-### 6. **☁️ Deploying to EC2 and CI/CD Pipeline**
-Finally, the project involves deploying the model and Flask app to production environments:
-
-- **EC2 Deployment**: The trained model and Flask app are deployed on an AWS EC2 instance to make the service publicly available.
-- **CI/CD Pipelines**: A continuous integration/continuous deployment (CI/CD) pipeline is set up using GitHub Actions or other tools to automate the deployment process and ensure seamless updates to the app and model.
-
-## 📦 Key Project Outputs
-
-- **Pickle files**: `.pkl` files for the data processing pipeline and the best-trained model.
-- **Pipeline folder**: A pipeline folder that automates data transformation and prediction.
-- **Flask app**: An API that exposes endpoints to receive new data and return predictions.
-- **EC2 Deployment**: The app and model are hosted on an EC2 instance, with a CI/CD pipeline for continuous updates.
 
 ---
 
-This modular approach to building, transforming, and deploying machine learning models ensures efficiency and scalability. The use of pickle files and pipelines enables automation for consistent predictions across different data inputs, while Flask and EC2 provide a robust solution for serving the model.
+This modular approach to building, transforming, and deploying machine learning models ensures efficiency and scalability. The use of pickle files and pipelines enables automation for consistent predictions across different data inputs using a Flask application.
+
+## 🔗 Extending Deployment to AWS or Azure Cloud ( Coming Soon )
+
+While this project demonstrates hosting a Flask app, you can extend the project structure to deploy the machine learning model on AWS or Azure cloud platforms. Below is a quick overview of how to achieve this using AWS services.
+
+# Approach 1
+1. Build docker containers that includes your model, dependencies, and a web server (e.g., Flask) to handle predictions
+2. Save the docker image to ECR (Elastic Container Registry ) if we wanted the model and data to be private
+3. Use Elastic bean to host our Docker image and use the flask app through a public url.
+
+# Approach 2
+1. Upload our model to Amazon S3 (object storage service).
+2. Create a SageMaker model object anf Configure an endpoint.
+3. Deploy the model to the endpoint and use the endpoint to get our predicitons for the test data.
 
 
 
 
-# End-End-ML-Project
-
-# 5 Steps of ML pipelines will be discussed and presented
-1. Data Ingestion
-2. Data transformation
-3. Model Training
-4. Model Deployment 
-5. Model Monitoring 
-
-Moreover, we use a setup.py file to import this ML project as a package that is easily transferable and be used by anyone without having to go through the need of worrying to install the prerequiste packages.
-
-# Steps followed 
-
-Step 1: Created a conda environment using conda create -p ./Mlops python = 3.8
-Step 2: Create a file called Requirements.txt which contains the list of all the packages needed for this project 
-Step 3: Create a setup.py file which uses the Requirements.txt to install the packages and also initiate the meta data of the package created for the python project.
-
-Note: we use a setup() main function to initialise the metadata of the package. 
-``` install_requires = [] # specify the dependencies of the project i.e. required packages using pip. Instead of specifying them as a list, we can call a function that picks up the list from the Requirements.txt```
-``` packages = find_packages() # find_packages is an inbuilt function from setuptools that searches the entire project folder to find the init files and install all the dependecies. More useful when you create multiple packages in the project. ```
