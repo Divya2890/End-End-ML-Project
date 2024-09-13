@@ -56,6 +56,8 @@ After training the models and setting up the pipeline, we create a **Flask** web
 - 🔗 Users to send new data to the model through post call submitted through a form from the app.
 - 🧮 The app to process the incoming data using the transformation pipeline and return predictions from the trained model.
 
+Check out the `input_form.png` and `prediction_result.png` for how the app looks and the results generated 
+
 ---
 
 This modular approach to building, transforming, and deploying machine learning models ensures efficiency and scalability. The use of pickle files and pipelines enables automation for consistent predictions across different data inputs using a Flask application.
