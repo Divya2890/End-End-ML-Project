@@ -66,12 +66,12 @@ This modular approach to building, transforming, and deploying machine learning 
 
 While this project demonstrates hosting a Flask app, you can extend the project structure to deploy the machine learning model on AWS or Azure cloud platforms. Below is a quick overview of how to achieve this using AWS services.
 
-# Approach 1
+## Approach 1
 1. Build docker containers that includes your model, dependencies, and a web server (e.g., Flask) to handle predictions
 2. Save the docker image to ECR (Elastic Container Registry ) if we wanted the model and data to be private
 3. Use Elastic bean to host our Docker image and use the flask app through a public url.
 
-# Approach 2
+## Approach 2
 1. Upload our model to Amazon S3 (object storage service).
 2. Create a SageMaker model object anf Configure an endpoint.
 3. Deploy the model to the endpoint and use the endpoint to get our predicitons for the test data.
