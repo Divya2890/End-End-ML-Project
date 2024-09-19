@@ -77,5 +77,9 @@ While this project demonstrates hosting a Flask app, you can extend the project 
 3. Deploy the model to the endpoint and use the endpoint to get our predicitons for the test data.
 
 
+## References
+
+[Modular Approach videos](https://www.youtube.com/watch?v=S_F_c9e2bz4&list=PLZoTAELRMXVPS-dOaVbAux22vzqdgoGhG)
+
 
 
